@@ -1,0 +1,7 @@
+sources:
+  - name: practice
+    database: PRACTICE_DEV_DB
+    schema: PRACTICE_DEV_SC
+    tables:
+      - name: EMP_NOV_3
+      - name: TRY_REGEXP

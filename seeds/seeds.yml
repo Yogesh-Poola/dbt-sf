@@ -1,0 +1,9 @@
+seeds:
+  - name: emp_1
+    config:
+      column_types:
+        "emp id": varchar
+      quote_columns: true
+  - name: emp_1_1
+    config:
+      delimiter: "|"
