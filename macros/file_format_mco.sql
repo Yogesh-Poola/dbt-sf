@@ -1,0 +1,43 @@
+{% macro csv_format_mco(
+     name,
+     COMPRESSION = "AUTO",
+     RECORD_DELIMITER = "NONE",
+     FIELD_DELIMITER = "','",
+     PARSE_HEADER = "FALSE",
+     SKIP_HEADER = 1,
+     SKIP_BLANK_LINES = "TRUE",
+     DATE_FORMAT = "AUTO",
+     TIME_FORMAT = "AUTO",
+     TIMESTAMP_FORMAT = "AUTO",
+     TRIM_SPACE = "TRUE",
+     FIELD_OPTIONALLY_ENCLOSED_BY = "'\"'",
+     NULL_IF = "( 'NULL', 'null' )",
+     ERROR_ON_COLUMN_COUNT_MISMATCH = "FALSE",
+     REPLACE_INVALID_CHARACTERS = "FALSE",
+     EMPTY_FIELD_AS_NULL = "TRUE",
+     ENCODING = "UTF8"
+) %}
+
+    {% set sql_text %}
+    CREATE FILE FORMAT {{name}}
+        TYPE = CSV
+        COMPRESSION = {{COMPRESSION}}
+        RECORD_DELIMITER = {{RECORD_DELIMITER}}
+        FIELD_DELIMITER = {{FIELD_DELIMITER}}
+        PARSE_HEADER = {{PARSE_HEADER}}
+        SKIP_HEADER = {{SKIP_HEADER}}
+        SKIP_BLANK_LINES = {{SKIP_BLANK_LINES}}
+        DATE_FORMAT = {{DATE_FORMAT}}
+        TIME_FORMAT = {{TIME_FORMAT}}
+        TIMESTAMP_FORMAT = {{TIMESTAMP_FORMAT}}
+        TRIM_SPACE = {{TRIM_SPACE}}
+        FIELD_OPTIONALLY_ENCLOSED_BY = {{FIELD_OPTIONALLY_ENCLOSED_BY}}
+        NULL_IF = {{NULL_IF}}
+        ERROR_ON_COLUMN_COUNT_MISMATCH = {{ERROR_ON_COLUMN_COUNT_MISMATCH}}
+        REPLACE_INVALID_CHARACTERS = {{REPLACE_INVALID_CHARACTERS}}
+        EMPTY_FIELD_AS_NULL = {{EMPTY_FIELD_AS_NULL}}
+        ENCODING = {{ENCODING}};       
+    {% endset %}
+    {% do run_query(sql_text) %}
+
+{% endmacro %}
