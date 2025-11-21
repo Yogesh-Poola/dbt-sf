@@ -2,5 +2,4 @@
     {% set cnt %}
     SELECT count(*) from {{tbl}}
     {% endset %}
-    {% log(cnt, info=true) %}
 {% endmacro %}

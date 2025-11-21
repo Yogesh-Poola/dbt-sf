@@ -45,3 +45,7 @@ models:
       +query_tag: dbt_run_tbl
     views:
       +query_tag: dbt_run_views
+
+vars:
+  orderstatus: '''F'''
+  vwh_xs1: COMPUTE_WH

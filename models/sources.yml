@@ -5,3 +5,22 @@ sources:
     tables:
       - name: EMP_NOV_3
       - name: TRY_REGEXP
+
+  - name: sf_sample_db
+    database: SNOWFLAKE_SAMPLE_DATA
+    schema: TPCH_SF1
+    tables:
+      - name: ORDERS
+
+  - name: default_source
+    database: DBT_SF_DEV
+    schema: DBT_SF_SC
+    tables:
+      - name: CUSTOMER
+      - name: CUSTOMER_KYC
+
+  - name: medallion
+    database: DBT_SF_DEV
+    schema: raw
+    tables:
+      - name: transactions_raw
