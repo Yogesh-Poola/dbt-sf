@@ -1,0 +1,79 @@
+version: 2
+
+models:
+
+  # ----------------------------
+  # SILVER MODEL (CLEAN DATA)
+  # ----------------------------
+  - name: transactions
+    description: "Clean, validated Silver-layer transaction records"
+    columns:
+
+      - name: transaction_id
+        description: "Unique transaction identifier"
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        tests:
+          - not_null
+
+      - name: amount
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1000000
+
+      - name: currency
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['USD', 'INR', 'EUR']
+
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['COMPLETED', 'PENDING', 'FAILED']
+
+      - name: created_at
+        tests:
+          - not_null
+          - no_future_timestamps
+
+      - name: processed_at
+        tests:
+          - no_future_timestamps
+          - created_before_processed
+          - pending_processed_logic
+
+      - name: extracted_at
+        tests:
+          - no_future_timestamps
+          - extracted_after_created
+
+      - name: channel
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['WEB', 'MOBILE', 'AGENT']
+
+
+
+  # ----------------------------
+  # ERROR MODEL (REJECTED DATA)
+  # ----------------------------
+  - name: transactions_errors
+    description: "Rejected raw records that failed Silver validation rules"
+    columns:
+      - name: transaction_id
+      - name: error_reason
+      - name: source_file
+      - name: created_at
+      - name: processed_at
+      - name: currency
